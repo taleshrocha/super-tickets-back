@@ -7,6 +7,7 @@ public class Cliente {
     private String numeroTelefone;
     private String contaBancaria;
     private int id;
+    private String documento;
     private ArrayList<Ticket> ticktesPessoal;
 
     Cliente(){
@@ -32,6 +33,13 @@ public class Cliente {
     }
     public String getConta() {
         return this.contaBancaria;
+    }
+    
+    public void setDocumento(String documento){
+        this.documento = documento; 
+    }
+    public String getDocumento() {
+        return this.documento;
     }
 
     public void set(int id){
