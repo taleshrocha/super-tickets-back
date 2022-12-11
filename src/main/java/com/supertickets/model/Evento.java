@@ -52,6 +52,7 @@ public class Evento {
 
         if (this == o)
             return true;
+
         if (!(o instanceof Evento))
             return false;
 
