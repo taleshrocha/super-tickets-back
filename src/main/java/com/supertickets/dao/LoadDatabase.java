@@ -21,6 +21,8 @@ class LoadDatabase {
       eventoRepository.save(new Evento("Copa do Mundo", "Catar"));
       eventoRepository.save(new Evento("Como procrastinar em PDS", "Natal, RN. Brasil"));
       eventoRepository.save(new Evento("Depressão pós-copa, uma realidade", "SP. Brasil"));
+      eventoRepository
+          .save(new Evento("Pirueta pelado no meio da praça, como fazer títulos interessantes", "RJ. Brasil"));
       eventoRepository.findAll().forEach(evento -> log.info("Preloaded " + evento));
 
       ticketRepository.save(new Ticket(20.00, 1L));

@@ -46,4 +46,17 @@ public class TicketController {
 
     return ticketAssembler.toModel(ticket);
   }
+
+  @GetMapping("/tickets/evento/{idEvento}")
+  public CollectionModel<EntityModel<Ticket>> allWithEvent(@PathVariable Long idEvento) {
+
+    List<EntityModel<Ticket>> tickets = ticketRepository
+        .findByIdEvento(idEvento)
+        .stream()
+        .map(ticketAssembler::toModel)
+        .collect(Collectors.toList());
+
+    return CollectionModel.of(tickets,
+        linkTo(methodOn(TicketController.class).all()).withSelfRel());
+  }
 }

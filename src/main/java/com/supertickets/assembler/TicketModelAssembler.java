@@ -15,7 +15,7 @@ public class TicketModelAssembler implements RepresentationModelAssembler<Ticket
   @Override
   public EntityModel<Ticket> toModel(Ticket ticket) {
     return EntityModel.of(ticket,
-        linkTo(methodOn(TicketController.class).all()).withRel("tickets"));
+        linkTo(methodOn(TicketController.class).one(ticket.getId())).withSelfRel(),
+        linkTo(methodOn(TicketController.class).all()).withRel("Todos os tickets"));
   }
-
 }

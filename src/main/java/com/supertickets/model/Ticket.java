@@ -13,7 +13,7 @@ public class Ticket {
   private double valor;
   private Long idEvento;
 
-  Ticket() {
+  public Ticket() {
   }
 
   public Ticket(double valor, Long idEvento) {
