@@ -1,13 +1,13 @@
-package com.supertickets.model;
+package com.supertickets;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ModelApplication {
+public class SuperticketsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ModelApplication.class, args);
+		SpringApplication.run(SuperticketsApplication.class, args);
 	}
 
 }

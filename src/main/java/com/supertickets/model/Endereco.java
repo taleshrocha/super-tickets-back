@@ -1,63 +1,63 @@
-package com.supertickets.model;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Endereco {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
-    private String rua;
-
-    private String bairro;
-    private String cidade;
-    private String estado;
-    private String pais;
-
-    public Endereco(){
-        //
-    }
-
-    public void setRua(String rua){
-        this.rua = rua;
-    }
-
-    public String getRua(){
-        return this.rua;
-    }
-
-    public void setBairro(String bairro){
-        this.bairro = bairro;
-    }
-
-    public String getBairro(){
-        return this.bairro;
-    }
-
-    public void setCidade(String cidade){
-        this.cidade = cidade;
-    }
-
-    public String getCidade(){
-        return this.cidade;
-    }
-
-    public void setEstado(String estado){
-        this.estado = estado;
-    }
-
-    public String getEstado(){
-        return this.estado;
-    }
-
-    public void setPais(String pais){
-        this.pais = pais;
-    }
-
-    public String getPais(){
-        return this.pais;
-    }
-}
+// package com.supertickets.model;
+//
+// import javax.persistence.Entity;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.GenerationType;
+// import javax.persistence.Id;
+//
+// @Entity
+// public class Endereco {
+// @Id
+// @GeneratedValue
+// private Long id;
+// private String rua;
+//
+// private String bairro;
+// private String cidade;
+// private String estado;
+// private String pais;
+//
+// public Endereco() {
+// //
+// }
+//
+// public void setRua(String rua) {
+// this.rua = rua;
+// }
+//
+// public String getRua() {
+// return this.rua;
+// }
+//
+// public void setBairro(String bairro) {
+// this.bairro = bairro;
+// }
+//
+// public String getBairro() {
+// return this.bairro;
+// }
+//
+// public void setCidade(String cidade) {
+// this.cidade = cidade;
+// }
+//
+// public String getCidade() {
+// return this.cidade;
+// }
+//
+// public void setEstado(String estado) {
+// this.estado = estado;
+// }
+//
+// public String getEstado() {
+// return this.estado;
+// }
+//
+// public void setPais(String pais) {
+// this.pais = pais;
+// }
+//
+// public String getPais() {
+// return this.pais;
+// }
+// }
