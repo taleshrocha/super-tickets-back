@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.supertickets.assembler.TicketModelAssembler;
 import com.supertickets.dao.TicketRepository;
+import com.supertickets.dao.ClienteTicketRepository;
 import com.supertickets.exception.TicketNotFoundException;
 import com.supertickets.model.Ticket;
 
@@ -21,10 +22,13 @@ public class TicketController {
 
   private final TicketRepository ticketRepository;
   private final TicketModelAssembler ticketAssembler;
+  private final ClienteTicketRepository clienteTicketRepository;
 
-  TicketController(TicketRepository ticketRepository, TicketModelAssembler ticketAssembler) {
+  TicketController(TicketRepository ticketRepository, TicketModelAssembler ticketAssembler,
+      ClienteTicketRepository clienteTicketRepository) {
     this.ticketRepository = ticketRepository;
     this.ticketAssembler = ticketAssembler;
+    this.clienteTicketRepository = clienteTicketRepository;
   }
 
   @GetMapping("/tickets")
@@ -48,12 +52,27 @@ public class TicketController {
   }
 
   @GetMapping("/tickets/evento/{idEvento}")
-  public CollectionModel<EntityModel<Ticket>> allWithEvent(@PathVariable Long idEvento) {
+  public CollectionModel<EntityModel<Ticket>> allWithEvento(@PathVariable Long idEvento) {
 
     List<EntityModel<Ticket>> tickets = ticketRepository
         .findByIdEvento(idEvento)
         .stream()
         .map(ticketAssembler::toModel)
+        .collect(Collectors.toList());
+
+    return CollectionModel.of(tickets,
+        linkTo(methodOn(TicketController.class).all()).withSelfRel());
+  }
+
+  @GetMapping("tickets/cliente/{idCliente}")
+  public CollectionModel<EntityModel<Ticket>> allWithCliente(@PathVariable Long idCliente) {
+
+    List<EntityModel<Ticket>> tickets = clienteTicketRepository
+        .findByIdCliente(idCliente)
+        .stream()
+        .map(ticket -> {
+          return one(ticket.getIdTicket());
+        })
         .collect(Collectors.toList());
 
     return CollectionModel.of(tickets,

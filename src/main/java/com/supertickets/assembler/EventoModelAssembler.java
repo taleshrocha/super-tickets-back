@@ -18,7 +18,7 @@ public class EventoModelAssembler implements RepresentationModelAssembler<Evento
     return EntityModel.of(evento,
         linkTo(methodOn(EventoController.class).one(evento.getId())).withSelfRel(),
         linkTo(methodOn(EventoController.class).all()).withRel("Todos os eventos"),
-        linkTo(methodOn(TicketController.class).allWithEvent(evento.getId()))
+        linkTo(methodOn(TicketController.class).allWithEvento(evento.getId()))
             .withRel("Todos os tickets com esse evento"));
   }
 }

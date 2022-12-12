@@ -13,7 +13,6 @@ public class Evento {
 
     private String nome;
     private String endereco;
-    // private @OneToMany ArrayList<Ticket> tickets;
 
     Evento() {
     }

@@ -1,63 +1,84 @@
-// package com.supertickets.model;
-//
-// import java.util.ArrayList;
-// import javax.persistence.*;
-//
-// @Entity
-// public class Cliente {
-//
-// private String name;
-// private String numeroTelefone;
-// private String contaBancaria;
-//
-// @Id
-// @GeneratedValue
-// private Long id;
-//
-// private String documento;
-//
-// private @OneToMany ArrayList<Ticket> ticktesPessoal;
-//
-// public Cliente() {
-// }
-//
-// public void setName(String name) {
-// this.name = name;
-// }
-//
-// public String get() {
-// return this.name;
-// }
-//
-// public void setTelefone(String telefone) {
-// this.numeroTelefone = telefone;
-// }
-//
-// public String getTelefone() {
-// return this.numeroTelefone;
-// }
-//
-// public void setConta(String conta) {
-// this.contaBancaria = conta;
-// }
-//
-// public String getConta() {
-// return this.contaBancaria;
-// }
-//
-// public void setDocumento(String documento) {
-// this.documento = documento;
-// }
-//
-// public String getDocumento() {
-// return this.documento;
-// }
-//
-// public void set(Long id) {
-// this.id = id;
-// }
-//
-// public Long getId() {
-// return this.id;
-// }
-// }
+package com.supertickets.model;
+
+import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class Cliente {
+
+  private @Id @GeneratedValue Long id;
+  private String nome;
+  private String numeroTelefone;
+  private String contaBancaria;
+
+  public Cliente() {
+  }
+
+  public Cliente(String nome, String numeroTelefone, String contaBancaria) {
+    this.nome = nome;
+    this.numeroTelefone = numeroTelefone;
+    this.contaBancaria = contaBancaria;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  public String getNome() {
+    return nome;
+  }
+
+  public void setNumeroTelefone(String numeroTelefone) {
+    this.numeroTelefone = numeroTelefone;
+  }
+
+  public String getNumeroTelefone() {
+    return numeroTelefone;
+  }
+
+  public void setContaBancaria(String contaBancaria) {
+    this.contaBancaria = contaBancaria;
+  }
+
+  public String getContaBancaria() {
+    return contaBancaria;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+
+    if (this == o)
+      return true;
+
+    if (!(o instanceof Cliente))
+      return false;
+
+    Cliente cliente = (Cliente) o;
+
+    return Objects.equals(this.id, cliente.id)
+        && Objects.equals(this.nome, cliente.nome)
+        && Objects.equals(this.contaBancaria, cliente.contaBancaria)
+        && Objects.equals(this.numeroTelefone, cliente.numeroTelefone);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.id, this.nome, this.numeroTelefone, this.contaBancaria);
+  }
+
+  @Override
+  public String toString() {
+    return "Cliente{"
+        + "id=" + this.id
+        + ", numeroTelefone='" + this.numeroTelefone + '\''
+        + ", contaBancaria='" + this.contaBancaria + '\''
+        + '}';
+  }
+}
