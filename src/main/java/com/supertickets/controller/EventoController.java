@@ -7,8 +7,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.supertickets.assembler.EventoModelAssembler;
@@ -46,5 +50,14 @@ public class EventoController {
         .orElseThrow(() -> new EventoNotFoundException(id));
 
     return eventoAssembler.toModel(evento);
+  }
+
+  @PostMapping("/eventos")
+  public ResponseEntity<?> newEvento(@RequestBody Evento newEvento) {
+    EntityModel<Evento> entityModel = eventoAssembler.toModel(eventoRepository.save(newEvento));
+
+    return ResponseEntity
+        .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+        .body(entityModel);
   }
 }

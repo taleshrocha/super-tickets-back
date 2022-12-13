@@ -10,7 +10,6 @@ import javax.persistence.Id;
 public class Evento {
 
     private @Id @GeneratedValue Long id;
-
     private String nome;
     private String endereco;
 

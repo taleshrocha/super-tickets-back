@@ -7,35 +7,28 @@ import java.util.stream.Collectors;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.supertickets.assembler.ClienteModelAssembler;
-import com.supertickets.assembler.TicketModelAssembler;
 import com.supertickets.dao.ClienteRepository;
-import com.supertickets.dao.ClienteTicketRepository;
-import com.supertickets.dao.TicketRepository;
 import com.supertickets.exception.ClienteNotFoundException;
-import com.supertickets.exception.ClienteTicketNotFoundException;
 import com.supertickets.model.Cliente;
-import com.supertickets.model.ClienteTicket;
-import com.supertickets.model.Ticket;
 
 @RestController
 public class ClienteController {
 
   private final ClienteRepository clienteRepository;
-  private final ClienteTicketRepository clienteTicketRepository;
   private final ClienteModelAssembler clienteAssembler;
-  private final TicketModelAssembler ticketModelAssembler;
 
-  ClienteController(ClienteRepository clienteRepository, ClienteModelAssembler clienteAssembler,
-      ClienteTicketRepository clienteTicketRepository, TicketModelAssembler ticketModelAssembler) {
+  ClienteController(ClienteRepository clienteRepository, ClienteModelAssembler clienteAssembler) {
     this.clienteRepository = clienteRepository;
     this.clienteAssembler = clienteAssembler;
-    this.clienteTicketRepository = clienteTicketRepository;
-    this.ticketModelAssembler = ticketModelAssembler;
   }
 
   @GetMapping("/clientes")
@@ -50,7 +43,7 @@ public class ClienteController {
 
   }
 
-  @GetMapping("clientes/{id}")
+  @GetMapping("/clientes/{id}")
   public EntityModel<Cliente> one(@PathVariable Long id) {
 
     Cliente cliente = clienteRepository.findById(id)
@@ -59,4 +52,12 @@ public class ClienteController {
     return clienteAssembler.toModel(cliente);
   }
 
+  @PostMapping("/clientes")
+  public ResponseEntity<?> newCliente(@RequestBody Cliente newCliente) {
+    EntityModel<Cliente> entityModel = clienteAssembler.toModel(clienteRepository.save(newCliente));
+
+    return ResponseEntity
+        .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+        .body(entityModel);
+  }
 }
